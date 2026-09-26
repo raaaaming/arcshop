@@ -63,3 +63,12 @@ arceconomy의 `EconomyService` 자체가 동기 API이고(내부적으로만 스
 스레드를 블로킹하지 않는다"는 원칙은 이 포트를 호출하는 Bukkit 모듈 계층에서 ARCCore
 `scheduler.runAsync { ... }` 로 트랜잭션 전체를 비동기 실행하고, 결과 반영(인벤토리/GUI 갱신)만
 `runSync`로 되돌리는 방식으로 지킨다.
+
+## 8. shop.yml 아이템 표기 — `material` 지름길
+
+캡처된 Base64 완전 일치 키(`item`/`result-item`)만 지원하면 이름/인챈트 등 커스텀 메타가 없는 흔한
+바닐라 재화(다이아몬드, 철 주괴 등)조차 반드시 인게임에서 `/arcshop capture`를 거쳐야 해서 첫 설정이
+번거롭다. 그래서 메타 없는 순정 아이템은 `result-material`/`price[].material`에 `Material` 이름만
+적으면 되도록 허용했다 — 내부적으로 `ItemStack(material)`을 만들어 동일한 `serializeAsBytes` 정규화를
+거치므로 완전 일치 규칙(#3)은 그대로 유지된다. 이름/설명/인챈트가 붙은 커스텀 아이템은 여전히
+`item`/`result-item`(캡처된 키)만 써야 한다.
