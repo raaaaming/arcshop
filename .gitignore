@@ -1,0 +1,7 @@
+.claude/
+.gradle/
+build/
+.kotlin/
+out/
+*.iml
+.idea/
